@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL ;
-export const API = `http://localhost:8000/api`;
+export const API = `https://finanzas-backend-2.onrender.com/api`;
 console.log("Using API URL:", API);
 const client = axios.create({
   baseURL: API,
