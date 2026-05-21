@@ -212,6 +212,7 @@ export default function FinanzasApp() {
 
   const handleLogout = async () => {
     try { await api.logout(); } catch {}
+    localStorage.removeItem("finanzas:token");   // ← línea añadida
     syncedOnce.current = false;
     setUser(null);
     setFiles([]); setActiveFile(null); setBudgets([]); setGoals([]);

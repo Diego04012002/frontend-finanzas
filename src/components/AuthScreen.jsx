@@ -49,8 +49,10 @@ export default function AuthScreen({ lang, setLang, onAuth }) {
       const res = mode === "login"
         ? await api.login({ email: form.email, password: form.password })
         : await api.register({ email: form.email, password: form.password, name: form.name || null });
-      // Try to also keep a JWT token in localStorage as fallback (re-login to capture from cookie set-cookie? cookies are httpOnly)
-      // Backend uses cookie-only; the next /me call carries it via withCredentials.
+      // Save token in localStorage as fallback for mobile browsers that block cross-site cookies
+      if (res?.data?.token) {
+        localStorage.setItem("finanzas:token", res.data.token);
+      }
       onAuth(res.data);
     } catch (err) {
       setError(formatApiError(err.response?.data?.detail) || err.message);
